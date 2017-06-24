@@ -1,0 +1,26 @@
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Model.Site();
+    var settings = Umbraco.TypedContent(1074);
+    var siteName = string.Empty;
+
+    if (settings != null)
+    {
+        siteName = settings.GetPropertyValue<string>("websiteName");
+    }
+}
+
+<header id="header" class="c-header" role="banner">
+    <a href="/" class="c-header__logo-link">
+        <img src="/assets/img/logo.png" alt="@siteName" class="c-header__logo-image">
+    </a>
+
+    <button class="c-header__toggle-menu-button js-toggle" id="toggle-menu" aria-haspopup="true">
+        <span class="u-hide-text">Menu</span>
+    </button>
+
+    @Html.Partial("~/Views/Partials/Components/MainNavigation.cshtml", new PageListingViewModel {
+        Listing = Model.Site().Children.Where(x => x.IsVisible() && x.TemplateId > 0),
+        CurrentModel = Model
+    })
+</header>

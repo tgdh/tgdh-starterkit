@@ -1,0 +1,143 @@
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var pageComponents = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("pageComponents");
+
+    if (pageComponents == null)
+    {
+        return;
+    }
+
+    const string wrapSize = "medium";
+    var pageComponentClass = "o-page-component";
+
+    foreach (var item in pageComponents)
+    {
+        var alignment = item.GetPropertyValue<string>("alignment");
+        var aspectRatio = item.GetPropertyValue<string>("aspectRatio");
+
+        if (alignment != "Full width")
+        {
+            var wrapMarkup = "<div class='o-page-component o-wrap o-wrap--" + wrapSize +"'>";
+
+            @Html.Raw(wrapMarkup)
+
+            pageComponentClass = "";
+        }
+
+        switch (item.DocumentTypeAlias)
+        {
+            case "imageGallery":
+                var gallery = new GalleryViewModel
+                {
+                    MediaIds = item.GetPropertyValue<string>("galleryIds"),
+                    Alignment = alignment,
+                    AspectRatio = aspectRatio,
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Gallery.cshtml", gallery)
+                break;
+            case "singleImage":
+                var image = new ImageViewModel
+                {
+                    ImageId = item.GetPropertyValue<string>("imageId"),
+                    Alignment = alignment,
+                    AspectRatio = aspectRatio,
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Image.cshtml", image)
+                break;
+            case "downloads":
+                var downloads = new DownloadsViewModel
+                {
+                    Title = item.GetPropertyValue<string>("title"),
+                    MediaIds = item.GetPropertyValue<string>("files"),
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Downloads.cshtml", downloads)
+                break;
+            case "quote":
+                var quote = new QuoteViewModel
+                {
+                    Quote = item.GetPropertyValue<IHtmlString>("quoteMessage"),
+                    Source = item.GetPropertyValue<string>("source"),
+                    Alignment = alignment,
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Quote.cshtml", quote)
+                break;
+            case "embed":
+                var embed = new EmbedViewModel
+                {
+                    EmbedCode = item.GetPropertyValue<string>("embedCode"),
+                    Alignment = alignment,
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Embed.cshtml", embed)
+                break;
+            case "textarea":
+                var text = new TextareaViewModel
+                {
+                    Text = item.GetPropertyValue<IHtmlString>("text"),
+                    AdditionalClass = pageComponentClass
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Textarea.cshtml", text)
+                break;
+            case "accordion":
+            case "tabs":
+                var tabList = new TabListViewModel
+                {
+                    Tabs = new List<TabViewModel>(),
+                    AdditionalClass = pageComponentClass
+                };
+
+                if (item.GetPropertyValue<IEnumerable<IPublishedContent>>("content") != null)
+                {
+                    foreach (var entry in item.GetPropertyValue<IEnumerable<IPublishedContent>>("content"))
+                    {
+                        if (entry != null)
+                        {
+                            tabList.Tabs.Add(new TabViewModel
+                            {
+                                Title = entry.GetPropertyValue<string>("title"),
+                                Content = entry.GetPropertyValue<IHtmlString>("content")
+                            });
+                        }
+                    }
+                }
+
+                @Html.Partial("~/Views/Partials/PageComponents/" + item.DocumentTypeAlias + ".cshtml", tabList)
+
+                break;
+            case "form":
+                var form = new FormViewModel
+                {
+                    Title = item.GetPropertyValue<string>("title"),
+                    FormName = item.GetPropertyValue<string>("form"),
+                    AdditionalClass = pageComponentClass,
+                    WrapClasses = "o-wrap o-wrap--" + wrapSize
+                };
+
+                @Html.Partial("~/Views/Partials/PageComponents/Form.cshtml", form)
+                break;
+            default:
+                @NoResult(item)
+                break;
+        }
+
+        if (item.HasProperty("alignment"))
+        {
+            @Html.Raw("</div>")
+        }
+    }
+}
+
+@helper NoResult(IPublishedContent item)
+{
+    <p>Element with DocumentTypeAlias <strong>@item.DocumentTypeAlias</strong> has no case in the switch statement.</p>
+}

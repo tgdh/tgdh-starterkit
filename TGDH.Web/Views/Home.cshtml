@@ -1,5 +1,14 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Home>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@inherits UmbracoViewPage<IPublishedContent>
 @{
-	Layout = null;
+    Layout = "Master.cshtml";
 }
+
+<main class="o-page__inner u-clearfix" role="main">
+	<h1>@Model.GetPropertyValue("headline", Model.Name)</h1>
+	
+	<h2>Cover</h2>
+	@Html.Partial("Components/Cover", new CoverViewModel {
+        Image = Umbraco.TypedMedia(1117),
+		Headline = "Example headline"
+    })
+</main>

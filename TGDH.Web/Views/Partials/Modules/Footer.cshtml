@@ -1,0 +1,27 @@
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Model.Site();
+    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
+    var siteName = string.Empty;
+    var copyright = string.Empty;
+
+    if (settings != null)
+    {
+        siteName = settings.GetPropertyValue<string>("websiteName");
+        copyright = settings.GetPropertyValue<string>("copyrightDisclaimer");
+    }
+}
+
+<footer id="footer" class="c-footer u-spacer" role="contentinfo">
+    @Html.Partial("~/Views/Partials/Components/FooterNavigation.cshtml")
+@*
+    @Html.Partial("~/Views/Partials/Components/SocialLinks.cshtml")
+*@
+
+    @if (!string.IsNullOrWhiteSpace(copyright))
+    {
+        <p class="c-footer__copyright">
+            @Html.Raw(copyright.Replace("\n", "<br/>"))
+        </p>
+    }
+</footer>
