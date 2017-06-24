@@ -6,10 +6,10 @@ public class SocialChannelsViewModel
 {
     public IEnumerable<IPublishedContent> SocialChannels { get; set; }
 
-    public int SocialChannelIconSize { get; set; }
+    public int IconSize { get; set; }
 
     public SocialChannelsViewModel()
     {
-        SocialChannelIconSize = 32;
+        IconSize = 32;
     }
 }

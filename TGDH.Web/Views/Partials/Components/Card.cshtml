@@ -1,11 +1,12 @@
+@using TGDH;
 @inherits UmbracoViewPage<CardViewModel>
 @{
     if (Model.Image == null)
     {
-        Model.Image = Umbraco.TypedMedia(1118);
+        Model.Image = TGDH.Settings<IPublishedContent>("defaultFeaturedImage");
     }
 
-    var imageUrl = Url.GetCropUrl(Model.Image, width: 400, htmlEncode: false);
+    var imageUrl = Url.GetCropUrl(Model.Image, cropAlias: "16:9", width: 400, htmlEncode: false);
     var altText = Model.Image.GetPropertyValue("altText", Model.Headline);
 }
 
@@ -16,7 +17,7 @@
         </div>
         <div class="c-card__content">
             @if(!String.IsNullOrWhiteSpace(Model.Headline)) {
-                <h2>@Model.Headline</h2>
+                <h2 class="c-card__headline">@Model.Headline</h2>
             }
         </div>
     </a>

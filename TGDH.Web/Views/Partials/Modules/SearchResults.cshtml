@@ -6,11 +6,11 @@
         return;
     }
 
-    var results = Umbraco.TypedSearch(query);
+    var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0);
 }
 
 <section class="m-search-results">
-    @if (results != null && results.Any()) {
+    @if (results.Any()) {
         <small>@results.Count() results for <strong>@query</strong></small>
 
         foreach (var item in results) {

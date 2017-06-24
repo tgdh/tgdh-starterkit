@@ -17,6 +17,13 @@ body {
     background-color: #f8f8f8;
 }
 
+.o-page__inner {
+    max-width: 1200px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto;
+}
+
 .c-button {
     color: #fff;
 	background-color: #3f51b5;
@@ -56,7 +63,7 @@ body {
 
 .c-header {
     color: #fff;
-    background-color: #78909C;
+    background-color: #607d8b;
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
@@ -79,6 +86,10 @@ body {
 
 /**/
 
+.c-card {
+    margin-bottom: 20px;
+}
+
 .c-card__link {
     display: inline-block;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, 
@@ -87,4 +98,11 @@ body {
 
 .c-card__content {
     padding: 16px;
+}
+
+.c-card__headline {
+    font-size: 20px;
+    line-height: 32px;
+    margin: 0;
+    color: #263238;
 }

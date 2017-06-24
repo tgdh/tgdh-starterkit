@@ -1,7 +1,7 @@
 @using TGDH;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var trackingId = TGDH.Settings.GetPropertyValue<string>("trackingId");
+    var trackingId = TGDH.Settings<string>("trackingId");
 }
 
 @if (!string.IsNullOrWhiteSpace(trackingId))
