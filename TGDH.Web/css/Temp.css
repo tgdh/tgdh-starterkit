@@ -1,0 +1,90 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;    
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #f8f8f8;
+}
+
+.c-button {
+    color: #fff;
+	background-color: #3f51b5;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+	z-index: 2;
+	position: relative;
+    padding: 10px 20px;
+	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 
+                0 3px 1px -2px rgba(0,0,0,.2), 
+                0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.c-button--skiplink {
+	position: fixed;
+	top: 10px;
+	left: -100%;
+	z-index: 100;
+}
+
+.c-button--skiplink:focus {
+    left: 10px;
+}
+
+.u-icon--16 {
+    width: 16px;
+    height: 16px;
+}
+
+.u-icon--32 {
+    width: 32px;
+    height: 32px;
+}
+
+.c-header {
+    color: #fff;
+    background-color: #78909C;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.26);
+}
+
+.c-header a {
+    color: #fff;
+}
+
+.c-nav__item {
+    display: inline-block;
+}
+
+.c-nav__link {
+    padding: 10px;
+    display: inline-block;
+}
+
+/**/
+
+.c-card__link {
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, 
+                rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+
+.c-card__content {
+    padding: 16px;
+}
