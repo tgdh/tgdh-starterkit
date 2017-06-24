@@ -1,15 +1,8 @@
+@using TGDH;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Model.Site();
-    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
-    var siteName = string.Empty;
-    var copyright = string.Empty;
-
-    if (settings != null)
-    {
-        siteName = settings.GetPropertyValue<string>("websiteName");
-        copyright = settings.GetPropertyValue<string>("copyrightDisclaimer");
-    }
+    var siteName = TGDH.Settings<string>("websiteName");
+    var copyright = TGDH.Settings<string>("copyrightDisclaimer");
 }
 
 <footer id="footer" class="c-footer u-spacer" role="contentinfo">

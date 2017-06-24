@@ -1,14 +1,7 @@
+@using TGDH;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Model.Site();
-    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
-
-    if (settings == null)
-    {
-        return;
-    }
-
-    var trackingId = settings.GetPropertyValue<string>("trackingId");
+    var trackingId = TGDH.Settings.GetPropertyValue<string>("trackingId");
 }
 
 @if (!string.IsNullOrWhiteSpace(trackingId))

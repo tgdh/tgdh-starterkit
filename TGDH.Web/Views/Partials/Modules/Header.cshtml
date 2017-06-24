@@ -1,13 +1,7 @@
+@using TGDH;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Model.Site();
-    var settings = Umbraco.TypedContent(1074);
-    var siteName = string.Empty;
-
-    if (settings != null)
-    {
-        siteName = settings.GetPropertyValue<string>("websiteName");
-    }
+    var siteName = TGDH.Settings<string>("websiteName");
 }
 
 <header id="header" class="c-header" role="banner">

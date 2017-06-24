@@ -1,16 +1,15 @@
+@using TGDH;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
-    var homePage = Model.Site();
-    var settings = homePage.Descendants("globalSettings").FirstOrDefault();
+    var navigationLinks = TGDH.Settings<IEnumerable<IPublishedContent>>("footerNavigation");
 
-    if (settings == null)
-    {
+    if( navigationLinks == null ) {
         return;
     }
 
-    var navigationLinks = settings.GetPropertyValue<IEnumerable<IPublishedContent>>("footerNavigation")
+    navigationLinks = navigationLinks
         .Where(DocumentTypeIsNotIgnored)
-        .Where(x => x.TemplateId > 0);        
+        .Where(x => x.TemplateId > 0);
 }
 
 @if (navigationLinks.Any())
