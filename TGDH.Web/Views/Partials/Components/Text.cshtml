@@ -1,0 +1,11 @@
+@inherits UmbracoViewPage<TextViewModel>
+@{
+    if (string.IsNullOrWhiteSpace(Model.Text.ToString()))
+    {
+        return;
+    }
+}
+
+<div class="@Model.ModifierClass">
+    @Model.Text
+</div>
