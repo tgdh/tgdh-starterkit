@@ -1,0 +1,64 @@
+@inherits UmbracoViewPage<PaginationViewModel>
+@{
+    var queryString = string.Empty;
+
+	if(!String.IsNullOrWhiteSpace(Model.HashLink)){
+		Model.HashLink = "#" + Model.HashLink;
+	}
+
+    foreach (var key in Request.QueryString)
+    {
+        if (key != null && (string)key != "page")
+        {
+            queryString = queryString + "&" + key + "=" + Request.QueryString[(string)key];
+        }
+    }
+}
+
+<nav class="c-pagination @Model.ModifierClass">
+    @if (Model.Paging.CurrentPage > 1) {
+        @*
+        <a href="@Model.CurrentModel.Url@queryString@Model.HashLink">First</a>
+*@
+        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage - 1)@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--prev" rel="prev">
+			<svg class="u-icon u-icon--24">
+				<use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
+			</svg>
+			<span class="u-visually-hidden">Previous</span>
+        </a>
+    } else {
+		<span class="c-pagination__link c-pagination__link--prev is-disabled" rel="prev">
+			<svg class="u-icon u-icon--24">
+				<use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
+			</svg>
+			<span class="u-visually-hidden">Previous</span>
+        </span>
+	}
+
+    @for (var page = Model.Paging.StartPage; page <= Model.Paging.EndPage; page++) {
+        var activeClass = Model.Paging.CurrentPage == page ? "is-active" : "";
+
+        <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--index @activeClass">
+            @page
+        </a>
+    }
+
+    @if (Model.Paging.CurrentPage < Model.Paging.TotalPages) {
+        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage + 1)@queryString" class="c-pagination__link c-pagination__link--next" rel="next">
+            <span class="u-visually-hidden">Next</span>
+			<svg class="u-icon u-icon--24">
+				<use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
+			</svg>
+        </a>
+        @*
+        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.TotalPages)@queryString@Model.HashLink">Last</a>
+        *@
+    } else {
+		<span href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage + 1)@queryString" class="c-pagination__link c-pagination__link--next is-disabled" rel="next">
+            <span class="u-visually-hidden">Next</span>
+			<svg class="u-icon u-icon--24">
+				<use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
+			</svg>
+        </span>
+	}
+</nav>

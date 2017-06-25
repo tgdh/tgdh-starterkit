@@ -1,9 +1,7 @@
-@using TGDH;
 @inherits UmbracoViewPage<CardViewModel>
 @{
-    if (Model.Image == null)
-    {
-        Model.Image = TGDH.Settings<IPublishedContent>("defaultFeaturedImage");
+    if (Model.Image == null) {
+        return;
     }
 
     var imageUrl = Url.GetCropUrl(Model.Image, cropAlias: "16:9", width: 400, htmlEncode: false);

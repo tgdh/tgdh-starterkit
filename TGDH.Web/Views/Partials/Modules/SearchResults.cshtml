@@ -1,3 +1,5 @@
+@using TGDH;
+@using TGDH.Core.Utility;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var query = Request.QueryString["q"];
@@ -6,20 +8,28 @@
         return;
     }
 
-    var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0);
+    var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch"));
+
+    var paging = Paging.GetPages(results.Count(), 5);
+    var selection = results.Skip(paging.Skip).Take(paging.Take);
 }
 
 <section class="m-search-results">
     @if (results.Any()) {
         <small>@results.Count() results for <strong>@query</strong></small>
 
-        foreach (var item in results) {
+        foreach (var item in selection) {
+            <p>@(item.GetPropertyValue<bool>("hideFromSearch"))</p>
             @Html.Partial("Components/Card", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
-                Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
+                Image = item.GetPropertyValue<IPublishedContent>("featuredImage", TGDH.Settings<IPublishedContent>("defaultFeaturedImage"))
             })
         }
+        @Html.Partial("Components/Pagination", new PaginationViewModel {
+            Paging = paging,
+            CurrentModel = Model
+        })
     } else {
         <p>Sorry, we couldn't find anything for <strong>@query</strong></p>
     }
