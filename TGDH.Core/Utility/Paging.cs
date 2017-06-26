@@ -7,7 +7,7 @@ namespace TGDH.Core.Utility
     {
         public int TotalItems { get; set; }
 
-        public int CurrentPage { get; set; }
+        public int CurrentIndex { get; set; }
 
         public int PageSize { get; set; }
 
@@ -21,68 +21,40 @@ namespace TGDH.Core.Utility
 
         public int Take { get; set; }
 
-        public int FirstOnpage { get; set; }
-
-        public int LastOnPage { get; set; }
-
-        public static Paging GetPages(int totalItems, int pageSize = 10)
+        public Paging(int totalItems, int pageSize = 5)
         {
             int page;
             int.TryParse(HttpContext.Current.Request.QueryString["page"], out page);
             if (page == 0) page = 1;
 
-            var totalPages = (int)Math.Ceiling(totalItems / (decimal)pageSize);
-            var currentPage = page;
-            var startPage = currentPage - 3;
-            var endPage = currentPage + 2;
-            int firstOnPage;
-            int lastOnPage;
-
+            var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
+            var currentIndex = page != null ? (int)page : 1;
+            var startPage = currentIndex - 5;
+            var endPage = currentIndex + 4;
             if (startPage <= 0)
             {
-                endPage -= startPage - 1;
+                endPage -= (startPage - 1);
                 startPage = 1;
             }
-
             if (endPage > totalPages)
             {
                 endPage = totalPages;
-
                 if (endPage > 10)
                 {
-                    startPage = endPage - (pageSize - 1);
+                    startPage = endPage - 9;
                 }
             }
 
-            if (currentPage == 1)
-            {
-                firstOnPage = 1;
-                lastOnPage = 1 + pageSize;
-            }
-            else
-            {
-                firstOnPage = 1 + currentPage * pageSize - pageSize;
-                lastOnPage = firstOnPage + pageSize;
+            TotalItems = totalItems;
+            CurrentIndex = currentIndex;
+            PageSize = pageSize;
+            TotalPages = totalPages;
+            StartPage = startPage;
+            EndPage = endPage;
+            Skip = (currentIndex - 1) * pageSize;
+            Take = pageSize;
 
-                if (lastOnPage > totalItems)
-                {
-                    lastOnPage = totalItems;
-                }
-            }
-
-            return new Paging
-            {
-                TotalItems = totalItems,
-                CurrentPage = currentPage,
-                PageSize = pageSize,
-                TotalPages = totalPages,
-                StartPage = startPage,
-                EndPage = endPage,
-                Take = pageSize,
-                Skip = page * pageSize - pageSize,
-                FirstOnpage = firstOnPage,
-                LastOnPage = lastOnPage
-            };
         }
+
     }
 }

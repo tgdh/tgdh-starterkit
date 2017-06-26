@@ -1,5 +1,6 @@
 @using TGDH;
 @using TGDH.Core.Utility;
+@using TGDH.Core.Models;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var query = Request.QueryString["q"];
@@ -9,9 +10,10 @@
     }
 
     var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch"));
-
-    var paging = Paging.GetPages(results.Count(), 5);
+  
+    var paging = new Paging(results.Count(), 5);
     var selection = results.Skip(paging.Skip).Take(paging.Take);
+
 }
 
 <section class="m-search-results">
@@ -25,6 +27,7 @@
                 Image = item.GetPropertyValue<IPublishedContent>("featuredImage", TGDH.Settings<IPublishedContent>("defaultFeaturedImage"))
             })
         }
+
         @Html.Partial("Components/Pagination", new PaginationViewModel {
             Paging = paging,
             CurrentModel = Model

@@ -1,10 +1,5 @@
 @inherits UmbracoViewPage<PaginationViewModel>
 @{
-    @*
-    //TODO: Look into articulate pagination:
-    // https://github.com/Shazwazza/Articulate/blob/master/src/Articulate.Web/App_Plugins/Articulate/Themes/Shazwazza/Views/Partials/Pager.cshtml
-    *@
-
     var queryString = string.Empty;
 
 	if(!String.IsNullOrWhiteSpace(Model.HashLink)){
@@ -21,49 +16,68 @@
 }
 
 <nav class="c-pagination @Model.ModifierClass">
-    @if (Model.Paging.CurrentPage > 1) {
-        @*
-        <a href="@Model.CurrentModel.Url@queryString@Model.HashLink">First</a>
-*@
-        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage - 1)@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--prev" rel="prev">
-			<svg class="u-icon u-icon--24">
-				<use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
-			</svg>
-			<span class="u-visually-hidden">Previous</span>
-        </a>
-    } else {
-		<span class="c-pagination__link c-pagination__link--prev is-disabled" rel="prev">
-			<svg class="u-icon u-icon--24">
-				<use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
-			</svg>
-			<span class="u-visually-hidden">Previous</span>
-        </span>
-	}
+    <ul class="c-pagination__list">
+        @if (Model.Paging.CurrentIndex > 1) {
+            @*
+            <li class="c-pagination__item">
+                <a href="@Model.CurrentModel.Url@queryString@Model.HashLink">First</a>
+            </li>
+            *@
+            <li class="c-pagination__item">
+                <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex - 1)@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--prev" rel="prev">
+                    <svg class="u-icon u-icon--24">
+                        <use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
+                    </svg>
+                    <span class="u-visually-hidden">Previous</span>
+                </a>
+            </li>
+        } else {
+            <li class="c-pagination__item">
+                <span class="c-pagination__link c-pagination__link--prev is-disabled" rel="prev">
+                    <svg class="u-icon u-icon--24">
+                        <use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
+                    </svg>
+                    <span class="u-visually-hidden">Previous</span>
+                </span>
+            </li>
+        }
 
-    @for (var page = Model.Paging.StartPage; page <= Model.Paging.EndPage; page++) {
-        var activeClass = Model.Paging.CurrentPage == page ? "is-active" : "";
+        @for (var page = Model.Paging.StartPage; page <= Model.Paging.EndPage; page++) {
+            var activeClass = Model.Paging.CurrentIndex == page ? "is-active" : "";
 
-        <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--index @activeClass">
-            @page
-        </a>
-    }
+            <li class="c-pagination__item @activeClass">
+                <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--index">
+                    @page
+                </a>
+            </li>
+        }
 
-    @if (Model.Paging.CurrentPage < Model.Paging.TotalPages) {
-        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage + 1)@queryString" class="c-pagination__link c-pagination__link--next" rel="next">
-            <span class="u-visually-hidden">Next</span>
-			<svg class="u-icon u-icon--24">
-				<use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
-			</svg>
-        </a>
-        @*
-        <a href="@Model.CurrentModel.Url?page=@(Model.Paging.TotalPages)@queryString@Model.HashLink">Last</a>
-        *@
-    } else {
-		<span href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentPage + 1)@queryString" class="c-pagination__link c-pagination__link--next is-disabled" rel="next">
-            <span class="u-visually-hidden">Next</span>
-			<svg class="u-icon u-icon--24">
-				<use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
-			</svg>
-        </span>
-	}
+        @if (Model.Paging.CurrentIndex < Model.Paging.TotalPages) {
+            <li class="c-pagination__item">
+                <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex + 1)@queryString" class="c-pagination__link c-pagination__link--next" rel="next">
+                    <span class="u-visually-hidden">Next</span>
+                    <svg class="u-icon u-icon--24">
+                        <use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+            @*
+            <li class="c-pagination__item">
+                <a href="@Model.CurrentModel.Url?page=@(Model.Paging.TotalPages)@queryString@Model.HashLink">Last</a>
+            </li>
+            *@
+        } else {
+            <li class="c-pagination__item">
+                <span href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex + 1)@queryString" class="c-pagination__link c-pagination__link--next is-disabled" rel="next">
+                    <span class="u-visually-hidden">Next</span>
+                    <svg class="u-icon u-icon--24">
+                        <use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
+                    </svg>
+                </span>
+            </li>
+        }
+    </ul>
 </nav>
+
+
+

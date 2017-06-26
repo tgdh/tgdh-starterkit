@@ -31,29 +31,20 @@ namespace TGDH.Core.ExtensionMethods
             return Guid.NewGuid().ToString("N");
         }
 
-        public static string TruncateAtWord(string text, int length, bool keepFullWordAtEnd = true)
+        public static string TruncateAtWord(this string text, int maxCharacters, string trailingStringIfTextCut = "&hellip;")
         {
-            const string ellipsis = "...";
-
-            if (string.IsNullOrEmpty(text))
-            {
-                return string.Empty;
-            }
-
-            if (text.Length < length)
-            {
+            if (text == null || (text = text.Trim()).Length <= maxCharacters)
                 return text;
-            }
 
-            text = text.Substring(0, length);
+            int trailLength = trailingStringIfTextCut.StartsWith("&") ? 1
+                                                                      : trailingStringIfTextCut.Length;
+            maxCharacters = maxCharacters - trailLength >= 0 ? maxCharacters - trailLength
+                                                             : 0;
+            int pos = text.LastIndexOf(" ", maxCharacters, StringComparison.Ordinal);
+            if (pos >= 0)
+                return text.Substring(0, pos) + trailingStringIfTextCut;
 
-            if (keepFullWordAtEnd)
-            {
-                text = text.Substring(0, text.LastIndexOf(' '));
-                text = text + ellipsis;
-            }
-
-            return text.Replace(",...", "...").Replace(";...", "...");
+            return string.Empty;
         }
     }
 }
