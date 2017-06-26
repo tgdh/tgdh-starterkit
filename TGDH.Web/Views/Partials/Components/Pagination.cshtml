@@ -1,5 +1,10 @@
 @inherits UmbracoViewPage<PaginationViewModel>
 @{
+    @*
+    //TODO: Look into articulate pagination:
+    // https://github.com/Shazwazza/Articulate/blob/master/src/Articulate.Web/App_Plugins/Articulate/Themes/Shazwazza/Views/Partials/Pager.cshtml
+    *@
+
     var queryString = string.Empty;
 
 	if(!String.IsNullOrWhiteSpace(Model.HashLink)){

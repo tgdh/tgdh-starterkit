@@ -19,7 +19,6 @@
         <small>@results.Count() results for <strong>@query</strong></small>
 
         foreach (var item in selection) {
-            <p>@(item.GetPropertyValue<bool>("hideFromSearch"))</p>
             @Html.Partial("Components/Card", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
