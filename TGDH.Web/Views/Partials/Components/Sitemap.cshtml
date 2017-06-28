@@ -18,7 +18,7 @@
     {
         var listClass = selection.First().Level > 2 ? "c-sitemap__list--sub" : "c-nav__item--parent";
 
-        <ul class="c-sitemap__list @listClass">
+        <ol class="c-sitemap__list @listClass">
             @foreach (var item in selection)
             {
                 var levelClass = "c-sitemap__item--level-" + item.Level;
@@ -28,7 +28,7 @@
                     @Traverse(item)
                 </li>
             }
-        </ul>
+        </ol>
     }
 }
 

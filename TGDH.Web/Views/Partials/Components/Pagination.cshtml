@@ -16,7 +16,8 @@
 }
 
 <nav class="c-pagination @Model.ModifierClass">
-    <ul class="c-pagination__items">
+    <span id="label-pagination" class="u-visually-hide">Pagination</span>
+    <ol class="c-pagination__items" aria-labelledby="label-pagination">
         @if (Model.Paging.CurrentIndex > 1) {
             @*
             <li class="c-pagination__item">
@@ -76,8 +77,5 @@
                 </span>
             </li>
         }
-    </ul>
+    </ol>
 </nav>
-
-
-
