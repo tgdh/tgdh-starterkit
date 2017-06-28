@@ -16,19 +16,19 @@
 }
 
 <nav class="c-pagination @Model.ModifierClass">
-    <ul class="c-pagination__list">
+    <ul class="c-pagination__items">
         @if (Model.Paging.CurrentIndex > 1) {
             @*
             <li class="c-pagination__item">
                 <a href="@Model.CurrentModel.Url@queryString@Model.HashLink">First</a>
             </li>
             *@
-            <li class="c-pagination__item">
-                <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex - 1)@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--prev" rel="prev">
+            <li class="c-pagination__item c-pagination__item--prev">
+                <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex - 1)@queryString@Model.HashLink" class="c-pagination__link" rel="prev">
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
                     </svg>
-                    <span class="u-visually-hidden">Previous</span>
+                    <span class="u-visually-hide">Go to previous page</span>
                 </a>
             </li>
         } else {
@@ -37,7 +37,6 @@
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
                     </svg>
-                    <span class="u-visually-hidden">Previous</span>
                 </span>
             </li>
         }
@@ -45,9 +44,11 @@
         @for (var page = Model.Paging.StartPage; page <= Model.Paging.EndPage; page++) {
             var activeClass = Model.Paging.CurrentIndex == page ? "is-active" : "";
 
-            <li class="c-pagination__item @activeClass">
-                <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link c-pagination__link--index">
+            <li class="c-pagination__item c-pagination__item--index @activeClass">
+                <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link">
                     @page
+
+                    <span class="u-visually-hide">Go to page</span> <span class="c-pagination__no">@page</span>
                 </a>
             </li>
         }
@@ -55,7 +56,7 @@
         @if (Model.Paging.CurrentIndex < Model.Paging.TotalPages) {
             <li class="c-pagination__item">
                 <a href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex + 1)@queryString" class="c-pagination__link c-pagination__link--next" rel="next">
-                    <span class="u-visually-hidden">Next</span>
+                    <span class="u-visually-hidden">Go to next page</span>
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
                     </svg>
@@ -69,7 +70,6 @@
         } else {
             <li class="c-pagination__item">
                 <span href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex + 1)@queryString" class="c-pagination__link c-pagination__link--next is-disabled" rel="next">
-                    <span class="u-visually-hidden">Next</span>
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
                     </svg>

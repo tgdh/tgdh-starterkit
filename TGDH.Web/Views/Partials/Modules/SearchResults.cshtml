@@ -1,6 +1,5 @@
 @using TGDH;
 @using TGDH.Core.Utility;
-@using TGDH.Core.Models;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     var query = Request.QueryString["q"];
@@ -9,7 +8,7 @@
         return;
     }
 
-    var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch"));
+    var results = Umbraco.TypedSearch(query).Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch")).ToList();
   
     var paging = new Paging(results.Count(), 5);
     var selection = results.Skip(paging.Skip).Take(paging.Take);
@@ -23,7 +22,7 @@
             @Html.Partial("Components/Card", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
-                Image = item.GetPropertyValue<IPublishedContent>("featuredImage", TGDH.Settings<IPublishedContent>("defaultFeaturedImage"))
+                Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
             })
         }
 

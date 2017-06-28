@@ -1,16 +1,15 @@
-﻿@using TGDH;
-@using TGDH.Core.Data;
+﻿@using TGDH.Core.Data;
 @using TGDH.Core.Utility;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
 	var headline = Model.GetPropertyValue<string>("headline", Model.Name);
 
-	var allposts = Blog.AllPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch")).OrderBy("releaseDate desc");
-	var filteredPosts = Blog.FilterSelection(allposts, Request.QueryString["author"], Request.QueryString["category"], Request.QueryString["year"], Request.QueryString["month"]);
+	var allposts = Blog.AllPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch")).OrderBy("releaseDate desc").ToList();
+	var filteredPosts = Blog.FilterSelection(allposts, Request.QueryString["author"], Request.QueryString["category"], Request.QueryString["year"], Request.QueryString["month"]).ToList();
 
     var paging = new Paging(filteredPosts.Count(), 5);
-    var selection = filteredPosts.Skip(paging.Skip).Take(paging.Take);
+    var selection = filteredPosts.Skip(paging.Skip).Take(paging.Take).ToList();
 }
 
 <main class="o-page__inner u-clearfix" role="main">
@@ -22,7 +21,7 @@
             @Html.Partial("Components/Card", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
-                Image = item.GetPropertyValue<IPublishedContent>("featuredImage", TGDH.Settings<IPublishedContent>("defaultFeaturedImage"))
+                Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
             })
         }
 
@@ -31,6 +30,7 @@
             CurrentModel = Model
         })
     } else {
-        <p>Sorry, we couldn't find anything</p>
+        @Model.GetPropertyValue("noResultsMessage")
     }
+
 </main>
