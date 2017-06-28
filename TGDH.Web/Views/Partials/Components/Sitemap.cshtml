@@ -7,10 +7,10 @@
     @Traverse(site)
 </div>
 
-@helper Traverse(IPublishedContent node)
+@helper Traverse(IPublishedContent model)
 {
     const int maxLevelForSitemap = 6;
-    var selection = node.Children
+    var selection = model.Children
         .Where(DocumentTypeIsNotIgnored)
         .Where(x => x.IsVisible() && x.Level <= maxLevelForSitemap && x.TemplateId > 0).ToList();
 
