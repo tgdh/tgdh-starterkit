@@ -34,11 +34,11 @@
             </li>
         } else {
             <li class="c-pagination__item">
-                <span class="c-pagination__link c-pagination__link--prev is-disabled" rel="prev">
+                <a class="c-pagination__link c-pagination__link--prev is-disabled">
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-left"></use>
                     </svg>
-                </span>
+                </a>
             </li>
         }
 
@@ -47,8 +47,6 @@
 
             <li class="c-pagination__item c-pagination__item--index @activeClass">
                 <a href="@Model.CurrentModel.Url?page=@page@queryString@Model.HashLink" class="c-pagination__link">
-                    @page
-
                     <span class="u-visually-hide">Go to page</span> <span class="c-pagination__no">@page</span>
                 </a>
             </li>
@@ -70,11 +68,11 @@
             *@
         } else {
             <li class="c-pagination__item">
-                <span href="@Model.CurrentModel.Url?page=@(Model.Paging.CurrentIndex + 1)@queryString" class="c-pagination__link c-pagination__link--next is-disabled" rel="next">
+                <a class="c-pagination__link c-pagination__link--next is-disabled">
                     <svg class="u-icon u-icon--24">
                         <use xlink:href="/assets/icons/icons.svg#arrow-right"></use>
                     </svg>
-                </span>
+                </a>
             </li>
         }
     </ol>
