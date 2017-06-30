@@ -47,6 +47,10 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Semver, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Semver.2.0.4\lib\net452\Semver.dll</HintPath>
     </Reference>
@@ -90,6 +94,22 @@
     <Compile Include="Data\DataHelpers.cs" />
     <Compile Include="ExtensionMethods\IntExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
+    <Compile Include="Models\AuthorViewModel.cs" />
+    <Compile Include="Models\CardViewModel.cs" />
+    <Compile Include="Models\CoverViewModel.cs" />
+    <Compile Include="Models\DownloadsViewModel.cs" />
+    <Compile Include="Models\EmbedViewModel.cs" />
+    <Compile Include="Models\GalleryViewModel.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\LinkPickerModel.cs" />
+    <Compile Include="Models\PageListingViewModel.cs" />
+    <Compile Include="Models\PaginationViewModel.cs" />
+    <Compile Include="Models\QuoteViewModel.cs" />
+    <Compile Include="Models\SocialChannelsViewModel.cs" />
+    <Compile Include="Models\TabListViewModel.cs" />
+    <Compile Include="Models\TabViewModel.cs" />
+    <Compile Include="Models\TextViewModel.cs" />
+    <Compile Include="Models\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utility\MailHelper.cs" />

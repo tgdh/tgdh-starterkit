@@ -23,6 +23,11 @@ namespace TGDH.Core.Data
             return posts;
         }
 
+        public static IEnumerable<IPublishedContent> AllOrderedPosts(UmbracoHelper umbraco)
+        {
+            return AllPosts(umbraco).OrderByDescending(x => x.GetPropertyValue<DateTime>("releaseDate"));
+        }
+
         public static bool StringInList(string stringInQuestion, string stringList)
         {
             return stringList.Split(',').Any(x => x.Equals(stringInQuestion, StringComparison.OrdinalIgnoreCase));

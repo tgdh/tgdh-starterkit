@@ -1,11 +1,12 @@
 ﻿@using TGDH.Core.Data;
 @using TGDH.Core.Utility;
+@using TGDH.Core.Models;
 @inherits UmbracoViewPage<IPublishedContent>
 @{
     Layout = "Master.cshtml";
 	var headline = Model.GetPropertyValue<string>("headline", Model.Name);
 
-	var allposts = Blog.AllPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch")).OrderBy("releaseDate desc").ToList();
+	var allposts = Blog.AllPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0).OrderBy("releaseDate desc").ToList();
 	var filteredPosts = Blog.FilterSelection(allposts, Request.QueryString["author"], Request.QueryString["category"], Request.QueryString["year"], Request.QueryString["month"]).ToList();
 
     var paging = new Paging(filteredPosts.Count(), 5);
