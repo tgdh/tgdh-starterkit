@@ -141,3 +141,28 @@ body {
 .c-pagination__item .u-icon {
     display: none;
 }
+
+/**/
+
+.c-link-list {
+    list-style: none;
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, 
+                rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+
+.c-link-list__item.is-active {
+    font-weight: 700;
+}
+
+.c-link-list__link {
+    color: #3f51b5;
+    padding: 16px 24px;
+    display: block;
+    background-color: #fff;
+    transition: background .3s ease-out
+}
+
+.c-link-list__link:hover {
+    background-color: rgba(0,0,0,0.05);
+}

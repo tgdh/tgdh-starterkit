@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Data\Blog.cs" />
     <Compile Include="Data\DataHelpers.cs" />
+    <Compile Include="Data\Filters.cs" />
     <Compile Include="ExtensionMethods\IntExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="Models\AuthorViewModel.cs" />
@@ -101,6 +102,8 @@
     <Compile Include="Models\EmbedViewModel.cs" />
     <Compile Include="Models\GalleryViewModel.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\LinkListViewModel.cs" />
     <Compile Include="Models\LinkPickerModel.cs" />
     <Compile Include="Models\PageListingViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />

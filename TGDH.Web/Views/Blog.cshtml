@@ -1,4 +1,5 @@
-﻿@using TGDH.Core.Data;
+﻿@using TGDH;
+@using TGDH.Core.Data;
 @using TGDH.Core.Utility;
 @using TGDH.Core.Models;
 @inherits UmbracoViewPage<IPublishedContent>
@@ -35,3 +36,22 @@
     }
 
 </main>
+<aside>
+    @{
+        var pageUrl = Model.Url;
+        var categoryLinks = Filters.GetCategoryLinks(Umbraco, pageUrl, Request.QueryString["category"]);
+        var authorLinks = Filters.GetAuthorLinks(Umbraco, pageUrl, Request.QueryString["author"]);
+    }
+
+    @if (categoryLinks != null) {
+        <h2>Categories</h2>
+        @Html.Partial("Components/LinkList", new LinkListViewModel(categoryLinks))
+    }
+
+    @if (authorLinks != null) {
+        <h2>Authors</h2>
+        @Html.Partial("Components/LinkList", new LinkListViewModel(authorLinks))
+    }
+</aside>
+
+
