@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core;
+using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace TGDH.Core.Data
@@ -84,6 +85,44 @@ namespace TGDH.Core.Data
                     });
             }
             return authorLinks;
+        }
+
+        public static List<Link> GetDatesFromSelection(List<IPublishedContent> selection = null, string baseUrl = "", string qMonth = "", string qYear = "")
+        {
+            if (selection == null)
+            {
+                return null;
+            }
+
+            var dateList = selection.Where(i => i.HasValue("releaseDate"))
+                .Select(d => new DateTime(d.GetPropertyValue<DateTime>("releaseDate").Year, d.GetPropertyValue<DateTime>("releaseDate").Month, 1))
+                .Distinct()
+                .ToList();
+
+            var dateLinks = new List<Link> {
+                    new Link{
+                        Name = "All dates",
+                        Url = baseUrl,
+                        IsActive = String.IsNullOrWhiteSpace(qYear) && String.IsNullOrWhiteSpace(qMonth)
+                    }
+                };
+
+            foreach (var date in dateList)
+            {
+                var linkName = date.ToString("yyyy MMMM");
+                var urlMonth = date.ToString("MMMM").ToLower();
+                var urlYear = date.ToString("yyyy");
+                var linkUrl = baseUrl + "?month=" + urlMonth + "&year=" + urlYear;
+                var isActive = urlMonth.InvariantEquals(qMonth) && urlYear.InvariantEquals(qYear);
+                dateLinks.Add(
+                    new Link
+                    {
+                        Name = linkName,
+                        Url = linkUrl,
+                        IsActive = isActive
+                    });
+            }
+            return dateLinks;
         }
     }
 }

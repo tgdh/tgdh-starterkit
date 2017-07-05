@@ -41,6 +41,8 @@
         var pageUrl = Model.Url;
         var categoryLinks = Filters.GetCategoryLinks(Umbraco, pageUrl, Request.QueryString["category"]);
         var authorLinks = Filters.GetAuthorLinks(Umbraco, pageUrl, Request.QueryString["author"]);
+
+        var dateLinks = Filters.GetDatesFromSelection(allposts, pageUrl, Request.QueryString["month"], Request.QueryString["year"]);
     }
 
     @if (categoryLinks != null) {
@@ -51,6 +53,11 @@
     @if (authorLinks != null) {
         <h2>Authors</h2>
         @Html.Partial("Components/LinkList", new LinkListViewModel(authorLinks))
+    }
+
+    @if (dateLinks != null) {
+        <h2>Archive</h2>
+        @Html.Partial("Components/LinkList", new LinkListViewModel(dateLinks))
     }
 </aside>
 
