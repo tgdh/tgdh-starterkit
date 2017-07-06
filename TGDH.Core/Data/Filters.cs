@@ -89,7 +89,7 @@ namespace TGDH.Core.Data
 
         public static List<Link> GetDatesFromSelection(List<IPublishedContent> selection = null, string baseUrl = "", string qMonth = "", string qYear = "")
         {
-            if (selection == null)
+            if (selection == null || !selection.Any())
             {
                 return null;
             }

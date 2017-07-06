@@ -93,6 +93,7 @@
     <Compile Include="Data\Blog.cs" />
     <Compile Include="Data\DataHelpers.cs" />
     <Compile Include="Data\Filters.cs" />
+    <Compile Include="Data\News.cs" />
     <Compile Include="ExtensionMethods\IntExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="Models\AuthorViewModel.cs" />

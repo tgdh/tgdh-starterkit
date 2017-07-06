@@ -6,10 +6,15 @@
     Layout = "Master.cshtml";
 	var headline = Model.GetPropertyValue<string>("headline", Model.Name);
 
-	var allposts = Model.Children().Where(x => x.IsVisible() && x.TemplateId > 0 && !x.GetPropertyValue<bool>("hideFromSearch")).OrderBy("releaseDate desc").ToList();
+    var qCat = Request.QueryString["category"];
+    var qMonth = Request.QueryString["month"];
+    var qYear = Request.QueryString["year"];
 
-    var paging = new Paging(allposts.Count(), 5);
-    var selection = allposts.Skip(paging.Skip).Take(paging.Take).ToList();
+    var allArticles = News.AllArticles(Umbraco).ToList().Where(x => x.IsVisible()).ToList();
+    var filteredArticles = News.FilterSelection(allArticles, qCat, qMonth, qYear).ToList();
+
+    var paging = new Paging(filteredArticles.Count(), 5);
+    var selection = filteredArticles.Skip(paging.Skip).Take(paging.Take).ToList();
 }
 
 <main class="o-page__inner u-clearfix" role="main">
@@ -18,11 +23,21 @@
 	@if (selection.Any()) {
 
         foreach (var item in selection) {
-            @Html.Partial("Components/Card", new CardViewModel {
-                Headline = item.GetPropertyValue<string>("headline", item.Name),
-                Url = item.Url,
-                Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
-            })
+            if (item.DocumentTypeAlias == "inTheMedia") {
+                @Html.Partial("Components/Card", new CardViewModel {
+                    Headline = item.GetPropertyValue<string>("headline", item.Name),
+                    Url = item.GetPropertyValue<string>("source", "#"),
+                    Image = item.GetPropertyValue<IPublishedContent>("featuredImage"),
+                    UrlTarget = "_blank",
+                    ModifierClass = "is-external"
+                })
+            } else {
+                @Html.Partial("Components/Card", new CardViewModel {
+                    Headline = item.GetPropertyValue<string>("headline", item.Name),
+                    Url = item.Url,
+                    Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
+                })
+            }
         }
 
         @Html.Partial("Components/Pagination", new PaginationViewModel {
@@ -34,3 +49,19 @@
     }
 
 </main>
+<aside>
+    @{
+        var pageUrl = Model.Url;
+        var dateLinks = Filters.GetDatesFromSelection(allArticles, pageUrl, qMonth, qYear);
+        var categoryLinks = News.GetCategoryLinks(allArticles, pageUrl, qCat);
+    }
+
+    @if (categoryLinks != null) {
+        <h2>Categories</h2>
+        @Html.Partial("Components/LinkList", new LinkListViewModel(categoryLinks))
+    }
+    @if (dateLinks != null) {
+        <h2>Archive</h2>
+        @Html.Partial("Components/LinkList", new LinkListViewModel(dateLinks))
+    }
+</aside>

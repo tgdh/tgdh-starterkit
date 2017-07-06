@@ -9,6 +9,8 @@ namespace TGDH.Core.Models
 
         public string Url { get; set; }
 
+        public string UrlTarget { get; set; }
+
         public IPublishedContent Image { get; set; }
 
         public string ModifierClass { get; set; }

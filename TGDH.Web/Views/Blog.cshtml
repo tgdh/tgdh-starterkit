@@ -19,22 +19,6 @@
     var selection = filteredPosts.Skip(paging.Skip).Take(paging.Take).ToList();
 }
 
-@{
-    @*
-    var temp = allposts.Where();
-
-
-    .Where(x => x.GetPropertyValue<IEnumerable<IPublishedContent>>(propertyAlias) != null && 
-        x.GetPropertyValue<IEnumerable<IPublishedContent>>(propertyAlias).FirstOrDefault().Name.ToUrlSegment().InvariantEquals(urlFriendlyName)
-            ).ToList();
-            *@
-
-var temp = allposts.First().GetPropertyValue<IEnumerable<IPublishedContent>>("category");
-    var temp2 = DataHelpers.IsUrlSegmentInList(temp, qCat);
-    <h2>@temp2</h2>
-}
-
-
 <main class="o-page__inner u-clearfix" role="main">
 	<h1>@headline</h1>
 

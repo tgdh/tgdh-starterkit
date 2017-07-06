@@ -39,7 +39,7 @@ namespace TGDH.Core.Data
             return source.Any(x => x.Name.ToUrlSegment().InvariantEquals(urlSegment));
         }
 
-        public static IEnumerable<IPublishedContent> FilterByDocumentType(IEnumerable<IPublishedContent> source, string documentType)
+        public static IEnumerable<IPublishedContent> FilterByDocumentTypeAlias(IEnumerable<IPublishedContent> source, string documentType)
         {
             return source.Where(x => x.DocumentTypeAlias.InvariantEquals(documentType)).ToList();
         }
