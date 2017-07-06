@@ -7,12 +7,33 @@
     Layout = "Master.cshtml";
 	var headline = Model.GetPropertyValue<string>("headline", Model.Name);
 
-	var allposts = Blog.AllPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0).OrderBy("releaseDate desc").ToList();
-	var filteredPosts = Blog.FilterSelection(allposts, Request.QueryString["author"], Request.QueryString["category"], Request.QueryString["year"], Request.QueryString["month"]).ToList();
+    var qAuthor = Request.QueryString["author"];
+    var qCat = Request.QueryString["category"];
+    var qMonth = Request.QueryString["month"];
+    var qYear = Request.QueryString["year"];
+
+	var allposts = Blog.AllOrderedPosts(Umbraco).ToList().Where(x => x.IsVisible() && x.TemplateId > 0).ToList();
+    var filteredPosts = Blog.FilterSelection(allposts, qAuthor, qCat, qMonth, qYear).ToList();
 
     var paging = new Paging(filteredPosts.Count(), 5);
     var selection = filteredPosts.Skip(paging.Skip).Take(paging.Take).ToList();
 }
+
+@{
+    @*
+    var temp = allposts.Where();
+
+
+    .Where(x => x.GetPropertyValue<IEnumerable<IPublishedContent>>(propertyAlias) != null && 
+        x.GetPropertyValue<IEnumerable<IPublishedContent>>(propertyAlias).FirstOrDefault().Name.ToUrlSegment().InvariantEquals(urlFriendlyName)
+            ).ToList();
+            *@
+
+var temp = allposts.First().GetPropertyValue<IEnumerable<IPublishedContent>>("category");
+    var temp2 = DataHelpers.IsUrlSegmentInList(temp, qCat);
+    <h2>@temp2</h2>
+}
+
 
 <main class="o-page__inner u-clearfix" role="main">
 	<h1>@headline</h1>
@@ -39,10 +60,10 @@
 <aside>
     @{
         var pageUrl = Model.Url;
-        var categoryLinks = Filters.GetCategoryLinks(Umbraco, pageUrl, Request.QueryString["category"]);
-        var authorLinks = Filters.GetAuthorLinks(Umbraco, pageUrl, Request.QueryString["author"]);
+        var categoryLinks = Filters.GetCategoryLinks(Umbraco, pageUrl, qCat);
+        var authorLinks = Filters.GetAuthorLinks(Umbraco, pageUrl, qAuthor);
 
-        var dateLinks = Filters.GetDatesFromSelection(allposts, pageUrl, Request.QueryString["month"], Request.QueryString["year"]);
+        var dateLinks = Filters.GetDatesFromSelection(allposts, pageUrl, qMonth, qYear);
     }
 
     @if (categoryLinks != null) {

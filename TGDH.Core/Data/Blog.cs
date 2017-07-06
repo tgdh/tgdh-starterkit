@@ -33,15 +33,15 @@ namespace TGDH.Core.Data
             return stringList.Split(',').Any(x => x.Equals(stringInQuestion, StringComparison.OrdinalIgnoreCase));
         }
 
-        public static IEnumerable<IPublishedContent> FilterSelection(IEnumerable<IPublishedContent> source, string author, string categories, string year, string month)
+        public static IEnumerable<IPublishedContent> FilterSelection(IEnumerable<IPublishedContent> source, string author, string category, string month, string year)
         {
-            var filterByCategory = !string.IsNullOrWhiteSpace(categories);
+            var filterByCategory = !string.IsNullOrWhiteSpace(category);
             var filterByAuthor = !string.IsNullOrWhiteSpace(author);
 
             if (filterByAuthor && filterByCategory)
             {
-                var postsInCategory = FilterBySelectedPrevaluePages(source, categories);
-                var postsByAuthor = GetPostsWithPrevalue(source, author, "author");
+                var postsInCategory = DataHelpers.FilterByPrevalueName(source, "category", category);
+                var postsByAuthor = DataHelpers.FilterByPrevalueName(source, "author", author);
 
                 source = postsInCategory.Intersect(postsByAuthor).ToList();
             }
@@ -49,79 +49,22 @@ namespace TGDH.Core.Data
             {
                 if (filterByAuthor)
                 {
-                    source = GetPostsWithPrevalue(source, author, "author");
+                    source = DataHelpers.FilterByPrevalueName(source, "author", author);
                 }
 
                 if (filterByCategory)
                 {
-                    source = FilterBySelectedPrevaluePages(source, categories);
+                    source = DataHelpers.FilterByPrevalueName(source, "category", category);
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(year))
             {
-                source = DataHelpers.FilterByYearAndMonth(source, year, month, "releaseDate");
+                source = DataHelpers.FilterByYearAndMonth(source, month, year, "releaseDate");
             }
 
             return source;
         }
-
-        public static bool CategoryIsMatch(IPublishedContent item, string categories)
-        {
-            if (string.IsNullOrWhiteSpace(categories))
-            {
-                return false;
-            }
-
-            var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-            var itemCateogires = item.GetPropertyValue<string>("categories");
-            if (string.IsNullOrWhiteSpace(itemCateogires))
-            {
-                return false;
-            }
-            return itemCateogires.Split(',').ToList().Any(
-              catId => StringInList(umbracoHelper.TypedContent(catId).Name, categories)
-            );
-
-        }
-
-        public static IEnumerable<IPublishedContent> FilterBySelectedPrevaluePages(IEnumerable<IPublishedContent> source, string categories)
-        {
-            if (String.IsNullOrWhiteSpace(categories))
-            {
-                return source;
-            }
-            var filteredEvents = source.Where(x => CategoryIsMatch(x, categories));
-            return filteredEvents.ToList();
-        }
-
-        public static IEnumerable<IPublishedContent> GetPostsWithPrevalue(IEnumerable<IPublishedContent> source, string pageName, string docType)
-        {
-            var prevaluePage = DataHelpers.GetPrevaluePageByName(source, pageName);
-
-            if (prevaluePage != null)
-            {
-                source = DataHelpers.FilterBySelectedPrevaluePage(source, docType, prevaluePage);
-            }
-
-            return source.ToList();
-        }
-
-        public static IEnumerable<IPublishedContent> AllFilteredPosts(UmbracoHelper umbraco, string category, string year, string month)
-        {
-            var allNewsArticles = AllOrderedPosts(umbraco);
-
-            if (!string.IsNullOrWhiteSpace(category))
-            {
-                allNewsArticles = DataHelpers.FilterByDocumentType(allNewsArticles, category);
-            }
-
-            if (!string.IsNullOrWhiteSpace(year))
-            {
-                allNewsArticles = DataHelpers.FilterByYearAndMonth(allNewsArticles, year, month, "releaseDate");
-            }
-
-            return allNewsArticles;
-        }
+        
     }
 }
