@@ -109,7 +109,7 @@ namespace TGDH.Core.Data
 
             foreach (var date in dateList)
             {
-                var linkName = date.ToString("yyyy MMMM");
+                var linkName = date.ToString("MMMM yyyy");
                 var urlMonth = date.ToString("MMMM").ToLower();
                 var urlYear = date.ToString("yyyy");
                 var linkUrl = baseUrl + "?month=" + urlMonth + "&year=" + urlYear;
