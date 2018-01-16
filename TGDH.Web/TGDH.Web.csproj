@@ -312,6 +312,12 @@
     <Content Include="config\404handlers.config" />
     <Content Include="Views\Partials\Meta\SEO.cshtml" />
     <Content Include="Views\Blog.cshtml" />
+    <Content Include="Views\Partials\Forms\ContactFormView.cshtml" />
+    <Content Include="Views\Partials\Forms\SearchForm.cshtml" />
+    <Content Include="Views\Partials\Modules\Footer.cshtml" />
+    <Content Include="Views\Partials\Modules\Header.cshtml" />
+    <Content Include="Views\Partials\Modules\PageComponents.cshtml" />
+    <Content Include="Views\Partials\Modules\SearchResults.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -323,7 +329,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\PaginationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
