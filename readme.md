@@ -6,10 +6,8 @@
 This is a starter kit for umbraco which aims to provide common functionality that most sites require.
 
 ## Login details
-admin
-tgdhstarterkit
-
----
+- admin
+- tgdhstarterkit
 
 ## Features
 
@@ -153,8 +151,6 @@ A component is rendered like any other partial view, except we're creating a new
     Description = Model.GetPropertyValue<string>("pageDescription")
 })
 ```
-As you can see above, the property names don't need to match those set in Umbraco.
-
 **IMPORTANT: Make sure to handle any null checks in the component view**
 
 ## Database
