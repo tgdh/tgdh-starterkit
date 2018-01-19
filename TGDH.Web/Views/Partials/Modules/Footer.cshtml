@@ -8,7 +8,7 @@
 
 <footer id="footer" class="c-footer u-spacer" role="contentinfo">
     @Html.Partial("~/Views/Partials/Components/FooterNavigation.cshtml")
-    @Html.Partial("Components/SocialChannels", new SocialChannelsViewModel {
+    @Html.Partial("~/Views/Partials/Components/SocialChannels.cshtml", new SocialChannelsViewModel {
         SocialChannels = TGDH.Settings<IEnumerable<IPublishedContent>>("socialChannels")
     })
 

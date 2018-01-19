@@ -37,11 +37,11 @@
 			<p>@Model.GetPropertyValue("pageDescription")</p>
 		</div>
 		<div class="s-free-content" itemprop="articleBody">
-			@Html.Partial("Modules/PageComponents")
+			@Html.Partial("~/Views/Partials/Modules/PageComponents.cshtml")
 		</div>
 
 		@if (author != null) {
-			@Html.Partial("Components/Author", new AuthorViewModel {
+			@Html.Partial("~/Views/Partials/Components/Author.cshtml", new AuthorViewModel {
 				Name = author.Name,
 				Image = author.GetPropertyValue<IPublishedContent>("profilePicture"),
 				Bio = author.GetPropertyValue<IHtmlString>("bio")

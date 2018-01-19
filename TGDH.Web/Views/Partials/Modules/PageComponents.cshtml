@@ -36,7 +36,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Gallery", gallery)
+                @Html.Partial("~/Views/Partials/Components/Gallery.cshtml", gallery)
                 break;
             case "imageObject":
                 var image = new ImageViewModel
@@ -47,7 +47,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Image", image)
+                @Html.Partial("~/Views/Partials/Components/Image.cshtml", image)
                 break;
             case "downloads":
                 var downloads = new DownloadsViewModel
@@ -57,7 +57,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Downloads", downloads)
+                @Html.Partial("~/Views/Partials/Components/Downloads.cshtml", downloads)
                 break;
             case "quote":
                 var quote = new QuoteViewModel
@@ -68,7 +68,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Quote", quote)
+                @Html.Partial("~/Views/Partials/Components/Quote.cshtml", quote)
                 break;
             case "embed":
                 var embed = new EmbedViewModel
@@ -77,7 +77,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Embed", embed)
+                @Html.Partial("~/Views/Partials/Components/Embed.cshtml", embed)
                 break;
             case "text":
                 var text = new TextViewModel
@@ -86,7 +86,7 @@
                     ModifierClass = pageComponentClass
                 };
 
-                @Html.Partial("Components/Text", text)
+                @Html.Partial("~/Views/Partials/Components/Text.cshtml", text)
                 break;
             case "accordion":
             case "tabs":
@@ -108,7 +108,7 @@
                     }
                 }
 
-                @Html.Partial("Components/" + item.DocumentTypeAlias, tabList)
+                @Html.Partial("~/Views/Partials/Components/" + item.DocumentTypeAlias + ".cshtml", tabList)
 
                 break;
             default:

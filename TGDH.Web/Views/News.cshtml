@@ -24,7 +24,7 @@
 
         foreach (var item in selection) {
             if (item.DocumentTypeAlias == "inTheMedia") {
-                @Html.Partial("Components/Card", new CardViewModel {
+                @Html.Partial("~/Views/Partials/Components/Card.cshtml", new CardViewModel {
                     Headline = item.GetPropertyValue<string>("headline", item.Name),
                     Url = item.GetPropertyValue<string>("source", "#"),
                     Image = item.GetPropertyValue<IPublishedContent>("featuredImage"),
@@ -32,7 +32,7 @@
                     ModifierClass = "is-external"
                 })
             } else {
-                @Html.Partial("Components/Card", new CardViewModel {
+                @Html.Partial("~/Views/Partials/Components/Card.cshtml", new CardViewModel {
                     Headline = item.GetPropertyValue<string>("headline", item.Name),
                     Url = item.Url,
                     Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
@@ -40,7 +40,7 @@
             }
         }
 
-        @Html.Partial("Components/Pagination", new PaginationViewModel {
+        @Html.Partial("~/Views/Partials/Components/Pagination.cshtml", new PaginationViewModel {
             Paging = paging,
             CurrentModel = Model
         })
@@ -58,10 +58,10 @@
 
     @if (categoryLinks != null) {
         <h2>Categories</h2>
-        @Html.Partial("Components/LinkList", new LinkListViewModel(categoryLinks))
+        @Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(categoryLinks))
     }
     @if (dateLinks != null) {
         <h2>Archive</h2>
-        @Html.Partial("Components/LinkList", new LinkListViewModel(dateLinks))
+        @Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(dateLinks))
     }
 </aside>

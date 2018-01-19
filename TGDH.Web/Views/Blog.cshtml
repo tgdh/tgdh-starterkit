@@ -25,14 +25,14 @@
 	@if (selection.Any()) {
 
         foreach (var item in selection) {
-            @Html.Partial("Components/Card", new CardViewModel {
+            @Html.Partial("~/Views/Partials/Components/Card.cshtml", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
                 Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
             })
         }
 
-        @Html.Partial("Components/Pagination", new PaginationViewModel {
+        @Html.Partial("~/Views/Partials/Components/Pagination.cshtml", new PaginationViewModel {
             Paging = paging,
             CurrentModel = Model
         })
@@ -52,17 +52,17 @@
 
     @if (categoryLinks != null) {
         <h2>Categories</h2>
-        @Html.Partial("Components/LinkList", new LinkListViewModel(categoryLinks))
+        @Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(categoryLinks))
     }
 
     @if (authorLinks != null) {
         <h2>Authors</h2>
-        @Html.Partial("Components/LinkList", new LinkListViewModel(authorLinks))
+        @Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(authorLinks))
     }
 
     @if (dateLinks != null) {
         <h2>Archive</h2>
-        @Html.Partial("Components/LinkList", new LinkListViewModel(dateLinks))
+        @Html.Partial("~/Views/Partials/Components/LinkList.cshtml", new LinkListViewModel(dateLinks))
     }
 </aside>
 

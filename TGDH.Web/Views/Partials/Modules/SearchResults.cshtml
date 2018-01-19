@@ -20,14 +20,14 @@
         <small>@results.Count() results for <strong>@query</strong></small>
 
         foreach (var item in selection) {
-            @Html.Partial("Components/Card", new CardViewModel {
+            @Html.Partial("~/Views/Partials/Components/Card.cshtml", new CardViewModel {
                 Headline = item.GetPropertyValue<string>("headline", item.Name),
                 Url = item.Url,
                 Image = item.GetPropertyValue<IPublishedContent>("featuredImage")
             })
         }
 
-        @Html.Partial("Components/Pagination", new PaginationViewModel {
+        @Html.Partial("~/Views/Partials/Components/Pagination.cshtml", new PaginationViewModel {
             Paging = paging,
             CurrentModel = Model
         })

@@ -9,7 +9,7 @@
 	<h1>@Model.GetPropertyValue("headline", Model.Name)</h1>
 	
 	<h2>Cover</h2>
-	@Html.Partial("Components/Cover", new CoverViewModel {
+	@Html.Partial("~/Views/Partials/Components/Cover.cshtml", new CoverViewModel {
         Image = TGDH.Settings<IPublishedContent>("defaultFeaturedImage"),
 		Headline = "Example headline"
     })
