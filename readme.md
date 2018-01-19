@@ -1,9 +1,7 @@
-
-
 # TGDH starter kit for Umbraco
 > Requires Umbraco 7.7.5+
 
-This is a starter kit for umbraco which aims to provide common functionality that most sites require.
+This is a starter kit for [Umbraco](https://umbraco.com/) which aims to provide common functionality that most sites require.
 
 ## Login details
 - admin
@@ -20,15 +18,15 @@ The `News` system includes a listing of 3 article categories and can be filtered
 - Press release
 - In the media
 
-Both `General news` and `Press release` articles show up in the listing and have a dedicated content page. `In the media` on the other hand will be shown in the listing but instead of linking to a content page, it will link to an external website.
+Both `General news` and `Press release` articles show up in the listing and have a dedicated content page. `In the media`, on the other hand, will be shown in the listing but instead of linking to a content page, it will link to an external website.
 
 ### Gateway page
-The `Gateway page` acts as a folder for other content pages. The primary function is to ensure sub pages can be navigated across different device types (e.g. touch) without having to include a sub nav on the content pages.
+The `Gateway page` acts as a folder for other content pages. The primary function is to ensure sub-pages can be navigated across different device types (e.g. touch) without having to include a sub nav on the content pages.
 
-Out of the box, the gateway has the ability highlight some of the sub pages. This makes it possible to make richer looking gateways.
+Out of the box, the gateway has the ability highlight some of the sub-pages. This makes it possible to make richer looking gateways.
 
 ### Text page
-The `Text page` doc type makes use of `Nested Content` to create something that we refer to as `Page components`. This allows you to add as many components resulting in richer looking content pages.
+The `Text page` doctype makes use of `Nested Content` to create something that we refer to as `Page components`. This allows you to add as many components resulting in richer looking content pages.
 
 Examples of page components include images, text, gallery, quotes, tabs etc.
 
@@ -53,7 +51,7 @@ The sitemap provides an ordered listing of pages on the site. To access an XML l
 
 ### Building
 
-There are two parts to the starterkit — the package and the core files.
+There are two parts to the starter kit — the package and the core files.
 
 #### Package
 The package contains a number of Umbraco specific functionality & needs to be created and exported from the packages interface.
@@ -74,7 +72,7 @@ tgdh-starterkit > TGDH.Web > Media > created-packages > tgdh-starterkit_x.x.x.zi
 - When the package is done saving, you can download it from the `Package file (.zip)` link
 
 #### Core files
-Please not that there's a number of Visual Studio projects that needs to be manually built:
+Please note that there's a number of Visual Studio projects that needs to be manually built:
 - TGDH.Core
 - TGDH.Forms
 
@@ -156,7 +154,7 @@ A component is rendered like any other partial view, except we're creating a new
 ## Database
 
 This project uses the SQL Compact edition for the following reasons:
-- Quick start
+- Quickstart
 - Stored on the file system
 - Ability to Version Control
 
